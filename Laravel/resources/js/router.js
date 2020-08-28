@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 // ページコンポーネントをインポート
 import Top from './pages/Top.vue'
 import Login from './pages/Login.vue'
+import Users from './pages/Users.vue'
+import Tweets from './pages/Tweets.vue'
 
 import store from './store'
 
@@ -25,6 +27,14 @@ const routes = [
             }
         }
     },
+    {
+        path: '/users',
+        component: Users
+    },
+    {
+        path: '/tweets',
+        component: Tweets
+    }
 ]
 
 // VueRouterインスタンスを作成

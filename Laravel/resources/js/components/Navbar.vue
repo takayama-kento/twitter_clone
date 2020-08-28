@@ -4,9 +4,17 @@
             Twitter Clone
         </RouterLink>
         <div class="navbar__menu">
-            <span v-if="isLogin" class="navbar__item">
-                {{ username }}
-            </span>
+            <div v-if="isLogin">
+                <RouterLink class="button button--link" to="/users">
+                    {{ username }}
+                </RouterLink>
+                <RouterLink class="button button--link" to="/users">
+                    Users
+                </RouterLink>
+                <RouterLink class="button button--link" to="/tweets">
+                    Tweets
+                </RouterLink>
+            </div>
             <div v-else class="navbar__item">
                 <RouterLink class="button button--link" to="/login">
                     Login /Register
