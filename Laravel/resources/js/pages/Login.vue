@@ -41,6 +41,17 @@
 
 <script>
 export default {
+    computed: {
+        apiStatus () {
+            return this.$store.state.auth.apiStatis
+        },
+        loginErrors () {
+            return this.$store.state.auth.logingErrorMessages
+        },
+        registerErrors () {
+            return this.$store.state.auth.registerErrorMessages
+        }
+    },
     data () {
         return {
             tab: 1,
@@ -59,12 +70,25 @@ export default {
     methods: {
         async login () {
             await this.$store.dispatch('auth/login', this.loginForm)
-            this.$router.push('/')
+
+            if (this.apiStatus) {
+                this.$router.push('/')
+            }
         },
         async register () {
             await this.$store.dispatch('auth/register', this.registerForm)
-            this.$router.push('/')
+
+            if (this.apiStatus) {
+                this.$router.push('/')
+            }
         },
+        clearError () {
+            this.$store.commit('auth/setLoginErrorMessages', null)
+            this.$store.commit('auth/setRegisterErrorMessages', null)
+        }
+    },
+    created () {
+        this.clearError()
     }
 }
 </script>

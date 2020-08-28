@@ -26,3 +26,6 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログインユーザー
 Route::get('/user', fn() => Auth::user())->name('user');
+
+// ユーザー一覧
+Route::get('/users', 'UserController@index')->name('users.index');

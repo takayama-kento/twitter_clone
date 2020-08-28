@@ -93,37 +93,37 @@ img {
   margin-left: 1rem;
 }
 
-.photo {
+.user {
   position: relative;
 }
 
-.photo:hover .photo__overlay {
+.user:hover .user__overlay {
   visibility: visible;
 }
 
-.photo:nth-child(4n+1) .photo__wrapper {
+.user:nth-child(4n+1) .user__wrapper {
   background: #DBBCD5;
 }
 
-.photo:nth-child(4n+2) .photo__wrapper {
+.user:nth-child(4n+2) .user__wrapper {
   background: #DBDBBC;
 }
 
-.photo:nth-child(4n+3) .photo__wrapper {
+.user:nth-child(4n+3) .user__wrapper {
   background: #BCDBC8;
 }
 
-.photo:nth-child(4n) .photo__wrapper {
+.user:nth-child(4n) .user__wrapper {
   background: #BCC8DB;
 }
 
-.photo__wrapper {
+.user__wrapper {
   overflow: hidden;
   padding-top: 75%;
   position: relative;
 }
 
-.photo__image {
+.user__image {
   display: block;
   position: absolute;
   top: 0;
@@ -134,7 +134,7 @@ img {
   height: 100%;
 }
 
-.photo__overlay {
+.user__overlay {
   background: rgba(0, 0, 0, 0.3);
   bottom: 0;
   color: #fff;
@@ -156,11 +156,11 @@ img {
   visibility: hidden;
 }
 
-.photo__controls {
+.user__controls {
   text-align: right;
 }
 
-.photo__action {
+.user__action {
   background: #fff;
   border: 0;
   border-radius: 0.25rem;
@@ -176,91 +176,91 @@ img {
   padding: 0.5em 0.75em;
 }
 
-.photo__action:hover {
+.user__action:hover {
   opacity: 1;
 }
 
-.photo__action--like .icon {
+.user__action--like .icon {
   color: #e4406f;
   margin-right: 0.5em;
 }
 
-.photo__action--liked {
+.user__action--liked {
   background: #e4406f;
   color: #fff;
 }
 
-.photo__action--liked .icon {
+.user__action--liked .icon {
   color: #fff;
 }
 
-.photo-detail {
+.user-detail {
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: justify;
           justify-content: space-between;
 }
 
-.photo-detail--column {
+.user-detail--column {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
 }
 
-.photo-detail--column .photo-detail__pane {
+.user-detail--column .user-detail__pane {
   width: 100%;
 }
 
-.photo-detail--column .photo-detail__image {
+.user-detail--column .user-detail__image {
   cursor: -webkit-zoom-out;
   cursor: zoom-out;
 }
 
-.photo-detail__pane {
+.user-detail__pane {
   width: 49%;
 }
 
-.photo-detail__image {
+.user-detail__image {
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
   margin-bottom: 1.5rem;
 }
 
-.photo-detail__image figcaption {
+.user-detail__image figcaption {
   margin-top: 0.5rem;
 }
 
-.photo-detail__title {
+.user-detail__title {
   font-size: 1.2rem;
   margin: 1.5rem 0;
 }
 
-.photo-detail__title .icon {
+.user-detail__title .icon {
   margin-right: 0.5em;
 }
 
-.photo-detail__comments {
+.user-detail__comments {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.photo-detail__commentItem {
+.user-detail__commentItem {
   border-bottom: 1px solid #dedede;
   margin-bottom: 1.5rem;
   padding: 0 0 1.5rem 0;
 }
 
-.photo-detail__commentBody {
+.user-detail__commentBody {
   margin: 0 0 1rem 0;
 }
 
-.photo-detail__commentInfo {
+.user-detail__commentInfo {
   color: #8a8a8a;
   margin: 0;
 }
 
-.photo-form {
+.user-form {
   background: #fff;
   border-radius: 0.25rem;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
