@@ -5,6 +5,8 @@ import VueRouter from 'vue-router'
 import Top from './pages/Top.vue'
 import Login from './pages/Login.vue'
 
+import store from './store'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,7 +16,14 @@ const routes = [
     },
     {
         path: '/login',
-        component: Login
+        component: Login,
+        beforeEnter (to, from, next) {
+            if (store.getters['auth/check']) {
+                next('/')
+            } else {
+                next()
+            }
+        }
     },
 ]
 
