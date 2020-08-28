@@ -28,7 +28,7 @@
                 <label for="email">Email</label>
                 <input type="text" class="form__item" id="email" v-model="registerForm.email">
                 <label for="password">Password</label>
-                <input type="passwrod" class="form__item" id="password" v-model="registerForm.password">
+                <input type="password" class="form__item" id="password" v-model="registerForm.password">
                 <label for="password_confirmation">Password (confirm)</label>
                 <input type="password" class="form__item" id="password_confirmation" v-model="registerForm.password_confirmation">
                 <div class="form__button">
@@ -57,11 +57,13 @@ export default {
         }
     },
     methods: {
-        login () {
-            console.log(this.loginForm)
+        async login () {
+            await this.$store.dispatch('auth/login', this.loginForm)
+            this.$router.push('/')
         },
-        register () {
-            console.log(this.registerForm)
+        async register () {
+            await this.$store.dispatch('auth/register', this.registerForm)
+            this.$router.push('/')
         },
     }
 }
