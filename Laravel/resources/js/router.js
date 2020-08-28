@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // ページコンポーネントをインポート
+import Top from './pages/Top.vue'
 import Login from './pages/Login.vue'
 
 Vue.use(VueRouter)
@@ -9,8 +10,12 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
+        component: Top
+    },
+    {
+        path: '/login',
         component: Login
-    }
+    },
 ]
 
 // VueRouterインスタンスを作成
