@@ -2194,7 +2194,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     apiStatus: function apiStatus() {
-      return this.$store.state.auth.apiStatis;
+      return this.$store.state.auth.apiStatus;
     },
     loginErrors: function loginErrors() {
       return this.$store.state.auth.logingErrorMessages;
@@ -21511,7 +21511,7 @@ var actions = {
                 break;
               }
 
-              context.commit('setUser', response.data);
+              context.commit('setApiStatus', true);
               context.commit('setUser', response.data);
               return _context2.abrupt("return", false);
 
