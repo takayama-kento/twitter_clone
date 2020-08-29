@@ -31,4 +31,7 @@ Route::get('/user', fn() => Auth::user())->name('user');
 Route::get('/users', 'UserController@index')->name('user.index');
 
 // ツイート投稿
-Route::post('/tweets/create', 'TweetController@create')->name('tweet.create');
+Route::post('/tweet/create', 'TweetController@create')->name('tweet.create');
+
+// ツイート一覧
+Route::get('/tweets', 'TweetController@index')->name('tweet.index');

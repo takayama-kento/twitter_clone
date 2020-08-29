@@ -23,7 +23,7 @@ export default {
     },
     methods: {
         async submit() {
-            const response = await axios.post('/api/tweets/create', this.Tweet)
+            const response = await axios.post('/api/tweet/create', this.Tweet)
             if (response.status === 201) {
                 this.$router.push('/tweets')
             }
