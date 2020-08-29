@@ -6,6 +6,7 @@ import Top from './pages/Top.vue'
 import Login from './pages/Login.vue'
 import Users from './pages/UserList.vue'
 import Tweets from './pages/TweetList.vue'
+import TweetForm from './pages/TweetForm.vue'
 import SystemError from './pages/System.vue'
 
 import store from './store'
@@ -30,11 +31,36 @@ const routes = [
     },
     {
         path: '/users',
-        component: Users
+        component: Users,
+        beforeEnter (to, from, next) {
+            if (store.getters['auth/check']) {
+                next()
+            } else {
+                next('/login')
+            }
+        }
     },
     {
         path: '/tweets',
-        component: Tweets
+        component: Tweets,
+        beforeEnter (to, from, next) {
+            if (store.getters['auth/check']) {
+                next()
+            } else {
+                next('/login')
+            }
+        }
+    },
+    {
+        path: '/tweets/create',
+        component: TweetForm,
+        beforeEnter (to, from, next) {
+            if (store.getters['auth/check']) {
+                next()
+            } else {
+                next('/login')
+            }
+        }
     },
     {
         path: '/500',

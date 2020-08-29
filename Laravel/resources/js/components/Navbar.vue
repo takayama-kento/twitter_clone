@@ -14,6 +14,9 @@
                 <RouterLink class="button button--link" to="/tweets">
                     Tweets
                 </RouterLink>
+                <RouterLink class="button button--link" to="/tweets/create">
+                    Tweetする
+                </RouterLink>
             </div>
             <div v-else class="navbar__item">
                 <RouterLink class="button button--link" to="/login">
