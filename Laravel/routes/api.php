@@ -28,4 +28,7 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/user', fn() => Auth::user())->name('user');
 
 // ユーザー一覧
-Route::get('/users', 'UserController@index')->name('users.index');
+Route::get('/users', 'UserController@index')->name('user.index');
+
+// ツイート投稿
+Route::post('/tweets/create', 'TweetController@create')->name('tweet.create');

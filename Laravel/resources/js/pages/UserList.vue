@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { OK } from '../util'
 import User from '../components/User.vue'
 
 export default {
@@ -26,6 +27,12 @@ export default {
     methods: {
         async fetchUsers() {
             const response = await axios.get('/api/users')
+            
+            if (response.status !== OK) {
+                this.$store.commit('error/setCode', response.status)
+                return false
+            }
+
             this.users = response.data.data
         }
     },
