@@ -20,15 +20,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -40,4 +31,19 @@ class User extends Authenticatable
     protected $visible = [
         'id', 'name',
     ];
+
+    public function followers()
+    {
+        return $this->belongsToMany(self::class, 'follows', 'followed_user_id', 'user_id');
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(self::class, 'follows', 'user_id', 'follower_user_id');
+    }
+
+    public function tweets()
+    {
+        return $this->hasMany('App\Tweet');
+    }
 }
