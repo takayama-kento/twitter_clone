@@ -6,6 +6,7 @@ use App\User;
 use App\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateTweet;
 
 class TweetController extends Controller
 {
@@ -18,10 +19,15 @@ class TweetController extends Controller
     /**
      * ツイート投稿
      */
-    public function create(Request $request)
+    public function create(CreateTweet $request)
     {
         $tweet = new Tweet();
         $tweet->tweet = $request->get('tweet');
-        $tweet->user_id = $Auth::user()->id;
+        $user = Auth::user();
+        $tweet->user_id = $user->id;
+
+        $user->tweets()->save($tweet);
+
+        return response($tweet, 201);
     }
 }

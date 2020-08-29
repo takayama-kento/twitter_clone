@@ -2337,7 +2337,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 response = _context.sent;
 
-                _this.$router.push('/tweets');
+                if (response.status === 201) {
+                  _this.$router.push('/tweets');
+                }
 
               case 4:
               case "end":
@@ -4280,7 +4282,7 @@ var render = function() {
           on: {
             submit: function($event) {
               $event.preventDefault()
-              return _vm.tweet($event)
+              return _vm.submit($event)
             }
           }
         },

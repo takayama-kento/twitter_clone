@@ -1,7 +1,7 @@
 <template>
     <div class="container--small">
         <div class="panel">
-            <form class="form" @submit.prevent="tweet">
+            <form class="form" @submit.prevent="submit">
                 <label for="tweet_content">Tweet Content</label>
                 <textarea class="form__item" id="content" v-model="Tweet.tweet"></textarea>
                 <div class="form__button">
@@ -24,7 +24,9 @@ export default {
     methods: {
         async submit() {
             const response = await axios.post('/api/tweets/create', this.Tweet)
-            this.$router.push('/tweets')
+            if (response.status === 201) {
+                this.$router.push('/tweets')
+            }
         }
     }
 }
