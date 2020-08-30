@@ -12,7 +12,12 @@
             <div class="px-2" v-show="item.followed_by_user">
                 <span class="px-1 bg-secondary text-light">フォローされています</span>
             </div>
-            <div v-if="item.following_to_user" class="d-flex justify-content-end flex-grow-1">
+            <div v-if="item.id === userId" class="d-flex justify-content-end flex-grow-1">
+                <button class="btn btn-dark">
+                    あなた
+                </button>
+            </div>
+            <div v-else-if="item.following_to_user" class="d-flex justify-content-end flex-grow-1">
                 <button class="btn btn-danger" @click.prevent="follow">
                     フォロー解除
                 </button>
@@ -28,6 +33,11 @@
 
 <script>
 export default {
+    computed: {
+        userId () {
+            return this.$store.getters['auth/userId']
+        }
+    },
     props: {
         item: {
             type: Object,

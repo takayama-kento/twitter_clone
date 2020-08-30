@@ -12,20 +12,23 @@
                     </div>
                     <div class="p-3 d-flex flex-column justify-content-between">
                         <div class="d-flex">
-                            <div v-if="user.following_to_user">
-                                <button class="btn btn-danger" @click.prevent="onFolllowClick">
+                            <div class="px-2" v-show="user.followed_by_user">
+                                <span class="px-1 bg-secondary text-light">フォローされています</span>
+                            </div>
+                            <div v-if="user.id === userId" class="d-flex justify-content-end flex-grow-1">
+                                <button class="btn btn-dark">
+                                    あなた
+                                </button>
+                            </div>
+                            <div v-else-if="user.following_to_user" class="d-flex justify-content-end flex-grow-1">
+                                <button class="btn btn-danger" @click.prevent="follow">
                                     フォロー解除
                                 </button>
                             </div>
-                            <div v-else>
-                                <button class="btn btn-primary" @click.prevent="onFollowClick">
+                            <div v-else class="d-flex justify-content-end flex-grow-1">
+                                <button class="btn btn-primary" @click.prevent="follow">
                                     フォローする
                                 </button>
-                            </div>
-                            <div v-show="user.followed_by_user">
-                                <span class="mt-2 px-1 bg-secondary text-light">
-                                    フォローされています
-                                </span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
@@ -62,6 +65,11 @@ import { OK, CREATED, UNPROCESSABLE_ENTITY } from '../util'
 import Tweet from '../components/Tweet.vue'
 
 export default {
+    computed: {
+        userId () {
+            return this.$store.getters['auth/userId']
+        }
+    },
     components: {
         Tweet
     },

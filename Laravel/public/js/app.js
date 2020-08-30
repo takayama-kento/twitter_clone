@@ -2187,7 +2187,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    userId: function userId() {
+      return this.$store.getters['auth/userId'];
+    }
+  },
   props: {
     item: {
       type: Object,
@@ -2607,9 +2617,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    userId: function userId() {
+      return this.$store.getters['auth/userId'];
+    }
+  },
   components: {
     Tweet: _components_Tweet_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -4471,7 +4489,7 @@ var render = function() {
           _c("p", { staticClass: "mb-0 text-secondary" }, [
             _vm._v(
               "\n                        " +
-                _vm._s(_vm.作成日) +
+                _vm._s(_vm.item.formatted_created_at) +
                 "\n                    "
             )
           ])
@@ -4567,7 +4585,13 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm.item.following_to_user
+      _vm.item.id === _vm.userId
+        ? _c("div", { staticClass: "d-flex justify-content-end flex-grow-1" }, [
+            _c("button", { staticClass: "btn btn-dark" }, [
+              _vm._v("\n                あなた\n            ")
+            ])
+          ])
+        : _vm.item.following_to_user
         ? _c("div", { staticClass: "d-flex justify-content-end flex-grow-1" }, [
             _c(
               "button",
@@ -5106,46 +5130,6 @@ var render = function() {
               { staticClass: "p-3 d-flex flex-column justify-content-between" },
               [
                 _c("div", { staticClass: "d-flex" }, [
-                  _vm.user.following_to_user
-                    ? _c("div", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.onFolllowClick($event)
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                フォロー解除\n                            "
-                            )
-                          ]
-                        )
-                      ])
-                    : _c("div", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.onFollowClick($event)
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                フォローする\n                            "
-                            )
-                          ]
-                        )
-                      ]),
-                  _vm._v(" "),
                   _c(
                     "div",
                     {
@@ -5156,20 +5140,83 @@ var render = function() {
                           value: _vm.user.followed_by_user,
                           expression: "user.followed_by_user"
                         }
-                      ]
+                      ],
+                      staticClass: "px-2"
                     },
                     [
                       _c(
                         "span",
-                        { staticClass: "mt-2 px-1 bg-secondary text-light" },
+                        { staticClass: "px-1 bg-secondary text-light" },
+                        [_vm._v("フォローされています")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.user.id === _vm.userId
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "d-flex justify-content-end flex-grow-1"
+                        },
                         [
-                          _vm._v(
-                            "\n                                フォローされています\n                            "
+                          _c("button", { staticClass: "btn btn-dark" }, [
+                            _vm._v(
+                              "\n                                あなた\n                            "
+                            )
+                          ])
+                        ]
+                      )
+                    : _vm.user.following_to_user
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "d-flex justify-content-end flex-grow-1"
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.follow($event)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                フォロー解除\n                            "
+                              )
+                            ]
                           )
                         ]
                       )
-                    ]
-                  )
+                    : _c(
+                        "div",
+                        {
+                          staticClass: "d-flex justify-content-end flex-grow-1"
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.follow($event)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                フォローする\n                            "
+                              )
+                            ]
+                          )
+                        ]
+                      )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "d-flex justify-content-end" }, [
