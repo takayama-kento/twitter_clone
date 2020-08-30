@@ -35,6 +35,8 @@ class TweetListApiTest extends TestCase
                 'author' => [
                     'id' => $tweet->author->id,
                     'name' => $tweet->author->name,
+                    'followed_by_user' => $tweet->author->followed_by_user,
+                    'following_to_user' => $tweet->author->following_to_user,
                 ]
             ];
         })

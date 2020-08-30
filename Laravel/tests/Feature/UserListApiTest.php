@@ -34,6 +34,8 @@ class UserListApiTest extends TestCase
             return [
                 'id' => $user->id,
                 'name' => $user->name,
+                'followed_by_user' => $user->followed_by_user,
+                'following_to_user' => $user->following_to_user,
             ];
         })
         ->all();
