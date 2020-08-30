@@ -44,7 +44,7 @@ class FollowApiTest extends TestCase
         $response = $this->followed_user->followers()->attach($this->following_user->id);
 
         $response = $this->actingAs($this->following_user)
-            ->json('DELETE', route('user.follow', [
+            ->json('DELETE', route('user.unfollow', [
                 'id' => $this->followed_user->id,
             ]));
         
@@ -53,6 +53,6 @@ class FollowApiTest extends TestCase
                     'user_id' => $this->followed_user->id,
                 ]);
         
-        $response->assertEquals(0, $this->followed_user->followers()->count());
+        $this->assertEquals(0, $this->followed_user->followers()->count());
     }
 }

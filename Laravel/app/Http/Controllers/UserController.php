@@ -46,7 +46,7 @@ class UserController extends Controller
      * フォロー解除
      */
     public function unfollow(int $id) {
-        $followed_user = User::where('id', $id)->with('followers')->fisrt();
+        $followed_user = User::where('id', $id)->with('followers')->first();
 
         if (! $followed_user) {
             abort(404);

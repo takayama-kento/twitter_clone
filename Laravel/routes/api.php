@@ -34,7 +34,7 @@ Route::get('/users', 'UserController@index')->name('user.index');
 Route::put('/users/{id}/follow', 'UserController@follow')->name('user.follow');
 
 // フォロー解除
-Route::delete('/users/{id}/follow', 'UserController@unfollow')->name('user.follow');
+Route::delete('/users/{id}/follow', 'UserController@unfollow')->name('user.unfollow');
 
 // ツイート投稿
 Route::post('/tweet/create', 'TweetController@create')->name('tweet.create');
