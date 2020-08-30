@@ -2088,6 +2088,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     username: function username() {
       return this.$store.getters['auth/username'];
+    },
+    userId: function userId() {
+      return this.$store.getters['auth/userId'];
     }
   }
 });
@@ -2103,6 +2106,26 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2497,6 +2520,295 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }
             }
           }, _callee2);
+        }))();
+      },
+      immediate: true
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/UserDetail.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/UserDetail.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+/* harmony import */ var _components_Tweet_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Tweet.vue */ "./resources/js/components/Tweet.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Tweet: _components_Tweet_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      user: null,
+      tweets: []
+    };
+  },
+  methods: {
+    fetchUser: function fetchUser() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get("/api/users/".concat(_this.id));
+
+              case 2:
+                response = _context.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context.next = 6;
+                  break;
+                }
+
+                _this.$store.commit('error/setCode', response.status);
+
+                return _context.abrupt("return", false);
+
+              case 6:
+                _this.user = response.data;
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    fetchTweets: function fetchTweets() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.get("/api/users/".concat(_this2.id, "/tweets"));
+
+              case 2:
+                response = _context2.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                _this2.$store.commit('error/setCode', response.status);
+
+                return _context2.abrupt("return", false);
+
+              case 6:
+                _this2.tweets = response.data.data;
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    onFollowClick: function onFollowClick() {
+      if (this.user.following_to_user) {
+        this.follow(this.id);
+      } else {
+        this.unfollow(this.id);
+      }
+    },
+    follow: function follow(id) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.put("/api/users/".concat(id, "/follow"));
+
+              case 2:
+                response = _context3.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                _this3.$store.commit('error/setCode', response.status);
+
+                return _context3.abrupt("return", false);
+
+              case 6:
+                _this3.users = _this3.users.map(function (user) {
+                  if (user.id === response.data.user_id) {
+                    user.following_to_user = true;
+                  }
+
+                  return user;
+                });
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    unfollow: function unfollow(id) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios["delete"]("/api/users/".concat(id, "/follow"));
+
+              case 2:
+                response = _context4.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context4.next = 6;
+                  break;
+                }
+
+                _this4.$store.commit('error/setCode', response.status);
+
+                return _context4.abrupt("return", false);
+
+              case 6:
+                _this4.users = _this4.users.map(function (user) {
+                  if (user.id === response.data.user_id) {
+                    user.following_to_user = false;
+                  }
+
+                  return user;
+                });
+
+              case 7:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    }
+  },
+  watch: {
+    $route: {
+      handler: function handler() {
+        var _this5 = this;
+
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+            while (1) {
+              switch (_context5.prev = _context5.next) {
+                case 0:
+                  _context5.next = 2;
+                  return _this5.fetchUser();
+
+                case 2:
+                  _context5.next = 4;
+                  return _this5.fetchTweets();
+
+                case 4:
+                case "end":
+                  return _context5.stop();
+              }
+            }
+          }, _callee5);
         }))();
       },
       immediate: true
@@ -4038,7 +4350,7 @@ var render = function() {
                   "RouterLink",
                   {
                     staticClass: "button button--link",
-                    attrs: { to: "/users" }
+                    attrs: { to: "/users/" + this.userId }
                   },
                   [
                     _vm._v(
@@ -4120,15 +4432,68 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "tweet" }, [
-    _c("div", { staticClass: "tweets-index-item" }, [
-      _c("div", { staticClass: "tweet-left" }, [
-        _vm._v("\n            " + _vm._s(_vm.item.author.name) + "\n        ")
+  return _c("div", { staticClass: "col-md-8 mb-3" }, [
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header p-3 w-100 d-flex" }, [
+        _c("img", {
+          staticClass: "rounded-circle",
+          attrs: {
+            src:
+              "https://drive.google.com/uc?id=1tRwOMX-PoWhp1dFhuV2wpe5_cOc6699W",
+            width: "50",
+            height: "50"
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "ml-2 d-flex flex-column flex-grow-1" },
+          [
+            _c(
+              "RouterLink",
+              {
+                staticClass: "text-secondary",
+                attrs: { to: "/users/" + _vm.item.author.id }
+              },
+              [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.item.author.name) +
+                    "\n                    "
+                )
+              ]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "d-flex justify-content-end flex-grow-1" }, [
+          _c("p", { staticClass: "mb-0 text-secondary" }, [
+            _vm._v(
+              "\n                        " +
+                _vm._s(_vm.作成日) +
+                "\n                    "
+            )
+          ])
+        ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "tweet-right" }, [
-        _vm._v("\n            " + _vm._s(_vm.item.tweet) + "\n        ")
-      ])
+      _c("div", { staticClass: "card-body" }, [
+        _vm._v("\n                " + _vm._s(_vm.item.tweet) + "\n            ")
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "card-footer py-1 justify-content-end bg-white" },
+        [
+          _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
+            _c("button", { staticClass: "user__action user__action--like" }, [
+              _c("i", { staticClass: "icon icon-md-heart" }),
+              _vm._v(_vm._s(_vm.いいねの数) + "\n                    ")
+            ])
+          ])
+        ]
+      )
     ])
   ])
 }
@@ -4219,9 +4584,19 @@ var render = function() {
             )
           ])
         : _c("div", { staticClass: "d-flex justify-content-end flex-grow-1" }, [
-            _c("button", { staticClass: "btn btn-primary" }, [
-              _vm._v("\n                フォローする\n            ")
-            ])
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.follow($event)
+                  }
+                }
+              },
+              [_vm._v("\n                フォローする\n            ")]
+            )
           ])
     ])
   ])
@@ -4677,6 +5052,180 @@ var render = function() {
       return _c("Tweet", { key: tweet.id, attrs: { item: tweet } })
     }),
     1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/UserDetail.vue?vue&type=template&id=17522045&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/UserDetail.vue?vue&type=template&id=17522045& ***!
+  \********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "row justify-content-center" },
+    [
+      _c("div", { staticClass: "col-md-8 mb-3" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "d-inline-flex" }, [
+            _c("div", { staticClass: "p-3 d-flex flex-column" }, [
+              _c("img", {
+                staticClass: "rounded-circle",
+                attrs: {
+                  src:
+                    "https://drive.google.com/uc?id=1tRwOMX-PoWhp1dFhuV2wpe5_cOc6699W",
+                  width: "100",
+                  height: "100"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-3 d-flex flex-column" }, [
+                _c("h4", { staticClass: "mb-0 font-weight-bold" }, [
+                  _vm._v(_vm._s(_vm.user.name))
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "p-3 d-flex flex-column justify-content-between" },
+              [
+                _c("div", { staticClass: "d-flex" }, [
+                  _vm.user.following_to_user
+                    ? _c("div", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.onFolllowClick($event)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                フォロー解除\n                            "
+                            )
+                          ]
+                        )
+                      ])
+                    : _c("div", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.onFollowClick($event)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                フォローする\n                            "
+                            )
+                          ]
+                        )
+                      ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.user.followed_by_user,
+                          expression: "user.followed_by_user"
+                        }
+                      ]
+                    },
+                    [
+                      _c(
+                        "span",
+                        { staticClass: "mt-2 px-1 bg-secondary text-light" },
+                        [
+                          _vm._v(
+                            "\n                                フォローされています\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "d-flex justify-content-end" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "p-2 d-flex flex-column align-items-center"
+                    },
+                    [
+                      _c("p", { staticClass: "font-weight-bold" }, [
+                        _vm._v("ツイート数")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(_vm.user.tweets_count))])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "p-2 d-flex flex-column align-items-center"
+                    },
+                    [
+                      _c("p", { staticClass: "font-weight-bold" }, [
+                        _vm._v("フォロー数")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(_vm.user.follows_count))])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "p-2 d-flex flex-column align-items-center"
+                    },
+                    [
+                      _c("p", { staticClass: "font-weight-bold" }, [
+                        _vm._v("フォロワー数")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(_vm.user.followers_count))])
+                    ]
+                  )
+                ])
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.tweets, function(tweet) {
+        return _c("Tweet", { key: tweet.id, attrs: { item: tweet } })
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -21930,6 +22479,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/UserDetail.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/pages/UserDetail.vue ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UserDetail_vue_vue_type_template_id_17522045___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserDetail.vue?vue&type=template&id=17522045& */ "./resources/js/pages/UserDetail.vue?vue&type=template&id=17522045&");
+/* harmony import */ var _UserDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserDetail.vue?vue&type=script&lang=js& */ "./resources/js/pages/UserDetail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UserDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UserDetail_vue_vue_type_template_id_17522045___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UserDetail_vue_vue_type_template_id_17522045___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/UserDetail.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/UserDetail.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./resources/js/pages/UserDetail.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./UserDetail.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/UserDetail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/UserDetail.vue?vue&type=template&id=17522045&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/pages/UserDetail.vue?vue&type=template&id=17522045& ***!
+  \**************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserDetail_vue_vue_type_template_id_17522045___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./UserDetail.vue?vue&type=template&id=17522045& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/UserDetail.vue?vue&type=template&id=17522045&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserDetail_vue_vue_type_template_id_17522045___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserDetail_vue_vue_type_template_id_17522045___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/pages/UserList.vue":
 /*!*****************************************!*\
   !*** ./resources/js/pages/UserList.vue ***!
@@ -22014,12 +22632,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Top_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/Top.vue */ "./resources/js/pages/Top.vue");
 /* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
 /* harmony import */ var _pages_UserList_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/UserList.vue */ "./resources/js/pages/UserList.vue");
-/* harmony import */ var _pages_TweetList_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/TweetList.vue */ "./resources/js/pages/TweetList.vue");
-/* harmony import */ var _pages_TweetForm_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/TweetForm.vue */ "./resources/js/pages/TweetForm.vue");
-/* harmony import */ var _pages_System_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/System.vue */ "./resources/js/pages/System.vue");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var _pages_UserDetail_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/UserDetail.vue */ "./resources/js/pages/UserDetail.vue");
+/* harmony import */ var _pages_TweetList_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/TweetList.vue */ "./resources/js/pages/TweetList.vue");
+/* harmony import */ var _pages_TweetForm_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/TweetForm.vue */ "./resources/js/pages/TweetForm.vue");
+/* harmony import */ var _pages_System_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/System.vue */ "./resources/js/pages/System.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 
  // ページコンポーネントをインポート
+
 
 
 
@@ -22036,7 +22656,7 @@ var routes = [{
   path: '/login',
   component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
-    if (_store__WEBPACK_IMPORTED_MODULE_8__["default"].getters['auth/check']) {
+    if (_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters['auth/check']) {
       next('/');
     } else {
       next();
@@ -22046,7 +22666,18 @@ var routes = [{
   path: '/users',
   component: _pages_UserList_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
-    if (_store__WEBPACK_IMPORTED_MODULE_8__["default"].getters['auth/check']) {
+    if (_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters['auth/check']) {
+      next();
+    } else {
+      next('/login');
+    }
+  }
+}, {
+  path: '/users/:id',
+  component: _pages_UserDetail_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+  props: true,
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters['auth/check']) {
       next();
     } else {
       next('/login');
@@ -22054,9 +22685,9 @@ var routes = [{
   }
 }, {
   path: '/tweets',
-  component: _pages_TweetList_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+  component: _pages_TweetList_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
-    if (_store__WEBPACK_IMPORTED_MODULE_8__["default"].getters['auth/check']) {
+    if (_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters['auth/check']) {
       next();
     } else {
       next('/login');
@@ -22064,9 +22695,9 @@ var routes = [{
   }
 }, {
   path: '/tweets/create',
-  component: _pages_TweetForm_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+  component: _pages_TweetForm_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
-    if (_store__WEBPACK_IMPORTED_MODULE_8__["default"].getters['auth/check']) {
+    if (_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters['auth/check']) {
       next();
     } else {
       next('/login');
@@ -22074,7 +22705,7 @@ var routes = [{
   }
 }, {
   path: '/500',
-  component: _pages_System_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+  component: _pages_System_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
 }]; // VueRouterインスタンスを作成
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
@@ -22116,6 +22747,9 @@ var getters = {
   },
   username: function username(state) {
     return state.user ? state.user.name : '';
+  },
+  userId: function userId(state) {
+    return state.user ? state.user.id : null;
   }
 };
 var mutations = {
