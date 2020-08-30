@@ -44,6 +44,7 @@ class TweetListForUserDetailApiTest extends TestCase
                     'followed_by_user' => $tweet->author->followed_by_user,
                     'following_to_user' => $tweet->author->following_to_user,
                 ],
+                'formatted_created_at' => $tweet->formatted_created_at,
             ];
         })
         ->all();

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Tweet extends Model
 {
@@ -14,9 +15,16 @@ class Tweet extends Model
         'tweet'
     ];
 
+    /**
+     * JSONに含めるアクセサ
+     */
+    protected $appends = [
+        'formatted_created_at',
+    ];
+
     /** JSONに含める属性 */
     protected $visible = [
-        'id', 'tweet', 'author',
+        'id', 'tweet', 'author', 'formatted_created_at',
     ];
 
     /**
@@ -26,5 +34,13 @@ class Tweet extends Model
     public function author()
     {
         return $this->belongsTo('App\User', 'user_id', 'id', 'users');
+    }
+
+    /**
+     * アクセサ - formatted_created_at
+     */
+    public function getFormattedCreatedAtAttribute()
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['created_at'])->format('Y/m/d H:i');
     }
 }
