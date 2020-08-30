@@ -63,7 +63,7 @@ class User extends Authenticatable
             return false;
         }
 
-        return $this->followers->contains(function ($user) {
+        return $this->follows->contains(function ($user) {
             return $user->id === Auth::user()->id;
         });
     }
@@ -77,7 +77,7 @@ class User extends Authenticatable
             return false;
         }
 
-        return $this->follows->contains(function ($user) {
+        return $this->followers->contains(function ($user) {
             return $user->id === Auth::user()->id;
         });
     }
