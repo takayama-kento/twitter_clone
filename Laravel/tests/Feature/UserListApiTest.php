@@ -24,7 +24,7 @@ class UserListApiTest extends TestCase
      */
     public function should_正しい構造のJSONを返却する()
     {
-        factory(User::class, 10)->create();
+        factory(User::class, 9)->create();
         $response = $this->actingAs($this->user)->json('GET', route('user.index'));
 
         $users = User::get();
@@ -38,11 +38,10 @@ class UserListApiTest extends TestCase
         })
         ->all();
 
-        $response->assertStatus(200);
-            // レスポンスJSONのdata項目が期待値と合致すること
-            /**
-             *->assertJsonFragment([
-             *  "data" => $expected_data,
-             *]); */
+        $response->assertStatus(200)
+            ->assertJsonCount(10, 'data')
+            ->assertJsonFragment([
+                "data" => $expected_data,
+            ]);
     }
 }
