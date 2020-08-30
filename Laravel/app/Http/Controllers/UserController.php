@@ -43,7 +43,7 @@ class UserController extends Controller
     /**
      * ユーザー詳細用のツイート一覧
      * @param int $id
-     * return Tweet
+     * @return Tweet
      */
     public function tweets(int $id)
     {

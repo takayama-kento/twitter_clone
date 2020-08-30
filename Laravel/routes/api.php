@@ -47,3 +47,6 @@ Route::post('/tweet/create', 'TweetController@create')->name('tweet.create');
 
 // ツイート一覧
 Route::get('/tweets', 'TweetController@index')->name('tweet.index');
+
+// ツイート詳細
+Route::get('/tweets/{tweet_id}', 'TweetController@show')->name('tweet.show');

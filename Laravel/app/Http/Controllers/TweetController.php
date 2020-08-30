@@ -41,4 +41,20 @@ class TweetController extends Controller
         
         return response()->json(['data' => $tweets]);
     }
+
+    /**
+     * ツイート詳細
+     * @param int $tweet_id
+     * @return Tweet
+     */
+    public function show(int $tweet_id)
+    {
+        $tweet = Tweet::with(['author'])->where('id', $tweet_id)->first();
+
+        if (! $tweet) {
+            abort(404);
+        }
+
+        return $tweet;
+    }
 }
