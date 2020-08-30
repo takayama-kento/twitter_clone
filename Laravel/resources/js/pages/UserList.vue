@@ -1,8 +1,7 @@
 <template>
-    <div class="user-list">
-        <div class="grid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
             <User
-                class="grid__item"
                 v-for="user in users"
                 :key="user.id"
                 :item="user"

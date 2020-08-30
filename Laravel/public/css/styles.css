@@ -546,3 +546,52 @@ img {
   margin-bottom: 1.5rem;
   padding: 1rem;
 }
+
+.tweet {
+  position: relative;
+}
+
+.tweet:hover .tweet__overlay {
+  visibility: visible;
+}
+
+.tweet:nth-child(4n+1) .tweet__wrapper {
+  background: #DBBCD5;
+}
+
+.tweet:nth-child(4n+2) .tweet__wrapper {
+  background: #DBDBBC;
+}
+
+.tweet:nth-child(4n+3) .tweet__wrapper {
+  background: #BCDBC8;
+}
+
+.tweet:nth-child(4n) .tweet__wrapper {
+  background: #BCC8DB;
+}
+
+.tweet__wrapper {
+  overflow: hidden;
+  padding-top: 75%;
+  position: relative;
+}
+
+.tweet-left {
+  float: left;
+  width: 10%;
+}
+
+.tweet-right {
+  float: left;
+  width: 90%;
+  padding-left: 25%;
+  text-align: left;
+}
+
+.tweets-index-item {
+  padding: 20px 30px;
+  background-color: #DBBCD5;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #c1ced7;
+}

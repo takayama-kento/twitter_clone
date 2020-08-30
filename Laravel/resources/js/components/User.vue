@@ -1,22 +1,15 @@
 <template>
-    <div class="user">
-        <figure class="user-wrapper">
-            {{ item.name }}
-        </figure>
-        <RouterLink
-            class="user__overlay"
-            :to="`/users/${item.id}`"
-            :title="item.name"
-        >
-            <div class="user__controls">
-                <button
-                    class="user__action user__action--like"
-                    title="Like user"
-                >
-                    <i class="icon ion-md-heart"></i>12
-                </button>
+    <div class="card">
+        <div class="card-header p-3 w-100 d-flex">
+            <img src="https://drive.google.com/uc?id=1tRwOMX-PoWhp1dFhuV2wpe5_cOc6699W" class="rounded-circle" width="50" height="50">
+            <div class="ml-2 d-flex flex-column">
+                <RouterLink
+                    class="button button--link"
+                    :to="`/users/${item.id}`"
+                    :title="`${item.name}`"
+                >{{ item.name }}</RouterLink>
             </div>
-        </RouterLink>
+        </div>
     </div>
 </template>
 

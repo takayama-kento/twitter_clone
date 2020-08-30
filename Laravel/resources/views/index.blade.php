@@ -14,6 +14,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
     <div id="app"></div>
