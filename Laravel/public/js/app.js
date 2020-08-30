@@ -2151,11 +2151,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     item: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    follow: function follow() {
+      this.$emit('follow', {
+        id: this.item.id,
+        followed: this.item.following_to_user
+      });
     }
   }
 });
@@ -2516,6 +2537,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2562,27 +2584,119 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    onFollowClick: function onFollowClick(_ref) {
+      var id = _ref.id,
+          followed = _ref.followed;
+
+      if (followed) {
+        this.unfollow(id);
+      } else {
+        this.follow(id);
+      }
+    },
+    follow: function follow(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.put("/api/users/".concat(id, "/follow"));
+
+              case 2:
+                response = _context2.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                _this2.$store.commit('error/setCode', response.status);
+
+                return _context2.abrupt("return", false);
+
+              case 6:
+                _this2.users = _this2.users.map(function (user) {
+                  if (user.id === response.data.user_id) {
+                    user.following_to_user = true;
+                  }
+
+                  return user;
+                });
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    unfollow: function unfollow(id) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios["delete"]("/api/users/".concat(id, "/follow"));
+
+              case 2:
+                response = _context3.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                _this3.$store.commit('error/setCode', response.status);
+
+                return _context3.abrupt("return", false);
+
+              case 6:
+                _this3.users = _this3.users.map(function (user) {
+                  if (user.id === response.data.user_id) {
+                    user.following_to_user = false;
+                  }
+
+                  return user;
+                });
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   },
   watch: {
     $route: {
       handler: function handler() {
-        var _this2 = this;
+        var _this4 = this;
 
-        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
             while (1) {
-              switch (_context2.prev = _context2.next) {
+              switch (_context4.prev = _context4.next) {
                 case 0:
-                  _context2.next = 2;
-                  return _this2.fetchUsers();
+                  _context4.next = 2;
+                  return _this4.fetchUsers();
 
                 case 2:
                 case "end":
-                  return _context2.stop();
+                  return _context4.stop();
               }
             }
-          }, _callee2);
+          }, _callee4);
         }))();
       },
       immediate: true
@@ -4066,7 +4180,49 @@ var render = function() {
           )
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.item.followed_by_user,
+              expression: "item.followed_by_user"
+            }
+          ],
+          staticClass: "px-2"
+        },
+        [
+          _c("span", { staticClass: "px-1 bg-secondary text-light" }, [
+            _vm._v("フォローされています")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _vm.item.following_to_user
+        ? _c("div", { staticClass: "d-flex justify-content-end flex-grow-1" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.follow($event)
+                  }
+                }
+              },
+              [_vm._v("\n                フォロー解除\n            ")]
+            )
+          ])
+        : _c("div", { staticClass: "d-flex justify-content-end flex-grow-1" }, [
+            _c("button", { staticClass: "btn btn-primary" }, [
+              _vm._v("\n                フォローする\n            ")
+            ])
+          ])
     ])
   ])
 }
@@ -4550,7 +4706,11 @@ var render = function() {
       "div",
       { staticClass: "col-md-8" },
       _vm._l(_vm.users, function(user) {
-        return _c("User", { key: user.id, attrs: { item: user } })
+        return _c("User", {
+          key: user.id,
+          attrs: { item: user },
+          on: { follow: _vm.onFollowClick }
+        })
       }),
       1
     )
