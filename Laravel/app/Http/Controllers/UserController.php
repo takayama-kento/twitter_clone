@@ -47,7 +47,7 @@ class UserController extends Controller
      */
     public function tweets(int $id)
     {
-        $tweets = Tweet::where('user_id', $id)->with(['author'])->orderBy(Tweet::CREATED_AT, 'desc')->get();
+        $tweets = Tweet::where('user_id', $id)->with(['author', 'likes'])->orderBy(Tweet::CREATED_AT, 'desc')->get();
         return response()->json(['data' => $tweets]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Like;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
@@ -44,7 +45,7 @@ class Tweet extends Model
      */
     public function likes()
     {
-        return $this->belongsToMany('App\User', 'likes');
+        return $this->hasMany('App\Like');
     }
 
     /**
@@ -68,8 +69,8 @@ class Tweet extends Model
      */
     public function getLikedByUserAttribute()
     {
-        return $this->likes->contains(function ($user) {
-            return $user->id === Auth::user()->id;
+        return $this->likes->contains(function ($like) {
+            return $like->user_id === Auth::user()->id;
         });
     }
 }

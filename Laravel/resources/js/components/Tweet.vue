@@ -23,10 +23,17 @@
                 </RouterLink>
             </div>
             <div class="card-footer py-1 justify-content-end bg-white">
-                <div class="mr-2 d-flex align-items-center">
-                    <button class="user__action user__action--like">
-                        <i class="icon icon-md-heart"></i>{{ いいねの数 }}
+                <div v-if="item.liked_by_user" class="mr-2 d-flex align-items-center">
+                    <button class="btn p-0 border-0" @click.prevent="like">
+                        <span class="fa fa-heart like-btn-unlike"></span>
                     </button>
+                    <p class="mb-0 text-secondary">{{ item.likes_count }}</p>
+                </div>
+                <div v-else class="mr-2 d-flex align-items-center">
+                    <button class="btn p-0 border-0" @click.prevent="like">
+                        <span class="fa fa-heart like-btn"></span>
+                    </button>
+                    <p class="mb-0 text-secondary">{{ item.likes_count }}</p>
                 </div>
             </div>
         </div>
@@ -41,5 +48,13 @@ export default {
             required: true
         }
     },
+    methods: {
+        like () {
+            this.$emit('like', {
+                id: this.item.id,
+                liked: this.item.liked_by_user,
+            })
+        }
+    }
 }
 </script>

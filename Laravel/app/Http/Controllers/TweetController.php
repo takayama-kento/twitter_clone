@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Tweet;
+use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateTweet;
@@ -49,7 +50,7 @@ class TweetController extends Controller
      */
     public function show(int $tweet_id)
     {
-        $tweet = Tweet::with(['author'])->where('id', $tweet_id)->first();
+        $tweet = Tweet::with(['author', 'likes'])->where('id', $tweet_id)->first();
 
         if (! $tweet) {
             abort(404);
@@ -65,14 +66,11 @@ class TweetController extends Controller
      */
     public function like(int $tweet_id)
     {
-        $tweet = Tweet::where('id', $tweet_id)->with('likes')->first();
+        Like::create([
+            'user_id' => Auth::user()->id,
+            'tweet_id' => $tweet_id
+        ]);
 
-        if (! $tweet) {
-            abort(404);
-        }
-
-        $tweet->likes()->detach(Auth::user()->id);
-        $tweet->likes()->attach(Auth::user()->id);
 
         return ["tweet_id" => $tweet_id];
     }
@@ -84,13 +82,13 @@ class TweetController extends Controller
      */
     public function unlike(int $tweet_id)
     {
-        $tweet = Tweet::where('id', $tweet_id)->with('likes')->first();
+        $like = Like::where('tweet_id', $tweet_id)->where('user_id', Auth::user()->id)->first();
 
-        if (! $tweet) {
+        if (! $like) {
             abort(404);
         }
 
-        $tweet->likes()->detach(Auth::user()->id);
+        $like->delete();
 
         return ["tweet_id" => $tweet_id];
     }

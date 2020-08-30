@@ -66,9 +66,8 @@ const routes = [
         }
     },
     {
-        path: '/tweets/:id',
-        component: TweetDetail,
-        props: true,
+        path: '/tweets/create',
+        component: TweetForm,
         beforeEnter (to, from, next) {
             if (store.getters['auth/check']) {
                 next()
@@ -78,8 +77,9 @@ const routes = [
         }
     },
     {
-        path: '/tweets/create',
-        component: TweetForm,
+        path: '/tweets/:id',
+        component: TweetDetail,
+        props: true,
         beforeEnter (to, from, next) {
             if (store.getters['auth/check']) {
                 next()

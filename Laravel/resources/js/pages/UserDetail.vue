@@ -21,12 +21,12 @@
                                 </button>
                             </div>
                             <div v-else-if="user.following_to_user" class="d-flex justify-content-end flex-grow-1">
-                                <button class="btn btn-danger" @click.prevent="follow">
+                                <button class="btn btn-danger" @click.prevent="onFollowClick">
                                     フォロー解除
                                 </button>
                             </div>
                             <div v-else class="d-flex justify-content-end flex-grow-1">
-                                <button class="btn btn-primary" @click.prevent="follow">
+                                <button class="btn btn-primary" @click.prevent="onFollowClick">
                                     フォローする
                                 </button>
                             </div>
@@ -55,6 +55,7 @@
              v-for="tweet in tweets"
             :key="tweet.id"
             :item="tweet"
+            @like="onLikeClick"
         />
 
     </div>
@@ -108,9 +109,9 @@ export default {
         },
         onFollowClick () {
             if (this.user.following_to_user) {
-                this.follow(this.id)
-            } else {
                 this.unfollow(this.id)
+            } else {
+                this.follow(this.id)
             }
         },
         async follow(id) {
@@ -121,12 +122,8 @@ export default {
                 return false
             }
 
-            this.users = this.users.map(user => {
-                if (user.id === response.data.user_id) {
-                    user.following_to_user = true
-                }
-                return user
-            })
+            this.user.following_to_user = true
+            this.user.followers_count += 1
         },
         async unfollow(id) {
             const response = await axios.delete(`/api/users/${id}/follow`)
@@ -136,11 +133,45 @@ export default {
                 return false
             }
 
-            this.users = this.users.map(user => {
-                if (user.id === response.data.user_id) {
-                    user.following_to_user = false
+            this.user.following_to_user = false
+            this.user.followers_count -= 1
+        },
+        onLikeClick ({ id, liked }) {
+             if (liked) {
+                this.unlike(id)
+            } else {
+                this.like(id)
+            }
+        },
+        async like(id) {
+            const response = await axios.put(`/api/tweets/${id}/like`)
+
+            if (response.status !== OK) {
+                return false
+            }
+
+            this.tweets = this.tweets.map(tweet => {
+                if (tweet.id === response.data.tweet_id) {
+                    tweet.likes_count += 1
+                    tweet.liked_by_user = true
                 }
-                return user
+                return tweet
+            })
+        },
+        async unlike(id) {
+            const response = await axios.delete(`/api/tweets/${id}/like`)
+
+            if (response.status !== OK) {
+                this.$store.commit('error/setCode', response.status)
+                return false
+            }
+
+            this.tweets = this.tweets.map(tweet => {
+                if (tweet.id === response.data.tweet_id) {
+                    tweet.likes_count -= 1
+                    tweet.liked_by_user = false
+                }
+                return tweet
             })
         }
     },

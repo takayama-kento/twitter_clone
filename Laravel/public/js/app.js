@@ -2016,6 +2016,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     userId: function userId() {
@@ -2026,6 +2032,14 @@ __webpack_require__.r(__webpack_exports__);
     item: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    like: function like() {
+      this.$emit('like', {
+        id: this.item.id,
+        liked: this.item.liked_by_user
+      });
     }
   }
 });
@@ -2205,11 +2219,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     item: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    like: function like() {
+      this.$emit('like', {
+        id: this.item.id,
+        liked: this.item.liked_by_user
+      });
     }
   }
 });
@@ -2480,6 +2508,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2528,27 +2562,108 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    onLikeClick: function onLikeClick() {
+      if (this.tweet.liked_by_user) {
+        this.unlike(this.id);
+      } else {
+        this.like(this.id);
+      }
+    },
+    like: function like(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.put("/api/tweets/".concat(id, "/like"));
+
+              case 2:
+                response = _context2.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                return _context2.abrupt("return", false);
+
+              case 5:
+                if (_this2.tweet.id === response.data.tweet_id) {
+                  _this2.tweet.likes_count += 1;
+                  _this2.tweet.liked_by_user = true;
+                }
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    unlike: function unlike(id) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios["delete"]("/api/tweets/".concat(id, "/like"));
+
+              case 2:
+                response = _context3.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                _this3.$store.commit('error/setCode', response.status);
+
+                return _context3.abrupt("return", false);
+
+              case 6:
+                if (_this3.tweet.id === response.data.tweet_id) {
+                  _this3.tweet.likes_count -= 1;
+                  _this3.tweet.liked_by_user = false;
+                }
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   },
   watch: {
     $route: {
       handler: function handler() {
-        var _this2 = this;
+        var _this4 = this;
 
-        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
             while (1) {
-              switch (_context2.prev = _context2.next) {
+              switch (_context4.prev = _context4.next) {
                 case 0:
-                  _context2.next = 2;
-                  return _this2.fetchTweet();
+                  _context4.next = 2;
+                  return _this4.fetchTweet();
 
                 case 2:
                 case "end":
-                  return _context2.stop();
+                  return _context4.stop();
               }
             }
-          }, _callee2);
+          }, _callee4);
         }))();
       },
       immediate: true
@@ -2659,6 +2774,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2705,27 +2821,119 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    onLikeClick: function onLikeClick(_ref) {
+      var id = _ref.id,
+          liked = _ref.liked;
+
+      if (liked) {
+        this.unlike(id);
+      } else {
+        this.like(id);
+      }
+    },
+    like: function like(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.put("/api/tweets/".concat(id, "/like"));
+
+              case 2:
+                response = _context2.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                return _context2.abrupt("return", false);
+
+              case 5:
+                _this2.tweets = _this2.tweets.map(function (tweet) {
+                  if (tweet.id === response.data.tweet_id) {
+                    tweet.likes_count += 1;
+                    tweet.liked_by_user = true;
+                  }
+
+                  return tweet;
+                });
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    unlike: function unlike(id) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios["delete"]("/api/tweets/".concat(id, "/like"));
+
+              case 2:
+                response = _context3.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                _this3.$store.commit('error/setCode', response.status);
+
+                return _context3.abrupt("return", false);
+
+              case 6:
+                _this3.tweets = _this3.tweets.map(function (tweet) {
+                  if (tweet.id === response.data.tweet_id) {
+                    tweet.likes_count -= 1;
+                    tweet.liked_by_user = false;
+                  }
+
+                  return tweet;
+                });
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   },
   watch: {
     $route: {
       handler: function handler() {
-        var _this2 = this;
+        var _this4 = this;
 
-        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
             while (1) {
-              switch (_context2.prev = _context2.next) {
+              switch (_context4.prev = _context4.next) {
                 case 0:
-                  _context2.next = 2;
-                  return _this2.fetchTweets();
+                  _context4.next = 2;
+                  return _this4.fetchTweets();
 
                 case 2:
                 case "end":
-                  return _context2.stop();
+                  return _context4.stop();
               }
             }
-          }, _callee2);
+          }, _callee4);
         }))();
       },
       immediate: true
@@ -2754,6 +2962,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -2912,9 +3121,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     onFollowClick: function onFollowClick() {
       if (this.user.following_to_user) {
-        this.follow(this.id);
-      } else {
         this.unfollow(this.id);
+      } else {
+        this.follow(this.id);
       }
     },
     follow: function follow(id) {
@@ -2942,15 +3151,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context3.abrupt("return", false);
 
               case 6:
-                _this3.users = _this3.users.map(function (user) {
-                  if (user.id === response.data.user_id) {
-                    user.following_to_user = true;
-                  }
+                _this3.user.following_to_user = true;
+                _this3.user.followers_count += 1;
 
-                  return user;
-                });
-
-              case 7:
+              case 8:
               case "end":
                 return _context3.stop();
             }
@@ -2983,46 +3187,133 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context4.abrupt("return", false);
 
               case 6:
-                _this4.users = _this4.users.map(function (user) {
-                  if (user.id === response.data.user_id) {
-                    user.following_to_user = false;
-                  }
+                _this4.user.following_to_user = false;
+                _this4.user.followers_count -= 1;
 
-                  return user;
-                });
-
-              case 7:
+              case 8:
               case "end":
                 return _context4.stop();
             }
           }
         }, _callee4);
       }))();
+    },
+    onLikeClick: function onLikeClick(_ref) {
+      var id = _ref.id,
+          liked = _ref.liked;
+
+      if (liked) {
+        this.unlike(id);
+      } else {
+        this.like(id);
+      }
+    },
+    like: function like(id) {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return axios.put("/api/tweets/".concat(id, "/like"));
+
+              case 2:
+                response = _context5.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context5.next = 5;
+                  break;
+                }
+
+                return _context5.abrupt("return", false);
+
+              case 5:
+                _this5.tweets = _this5.tweets.map(function (tweet) {
+                  if (tweet.id === response.data.tweet_id) {
+                    tweet.likes_count += 1;
+                    tweet.liked_by_user = true;
+                  }
+
+                  return tweet;
+                });
+
+              case 6:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    unlike: function unlike(id) {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return axios["delete"]("/api/tweets/".concat(id, "/like"));
+
+              case 2:
+                response = _context6.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context6.next = 6;
+                  break;
+                }
+
+                _this6.$store.commit('error/setCode', response.status);
+
+                return _context6.abrupt("return", false);
+
+              case 6:
+                _this6.tweets = _this6.tweets.map(function (tweet) {
+                  if (tweet.id === response.data.tweet_id) {
+                    tweet.likes_count -= 1;
+                    tweet.liked_by_user = false;
+                  }
+
+                  return tweet;
+                });
+
+              case 7:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
     }
   },
   watch: {
     $route: {
       handler: function handler() {
-        var _this5 = this;
+        var _this7 = this;
 
-        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
             while (1) {
-              switch (_context5.prev = _context5.next) {
+              switch (_context7.prev = _context7.next) {
                 case 0:
-                  _context5.next = 2;
-                  return _this5.fetchUser();
+                  _context7.next = 2;
+                  return _this7.fetchUser();
 
                 case 2:
-                  _context5.next = 4;
-                  return _this5.fetchTweets();
+                  _context7.next = 4;
+                  return _this7.fetchTweets();
 
                 case 4:
                 case "end":
-                  return _context5.stop();
+                  return _context7.stop();
               }
             }
-          }, _callee5);
+          }, _callee7);
         }))();
       },
       immediate: true
@@ -4598,14 +4889,49 @@ var render = function() {
             "div",
             { staticClass: "card-footer py-1 justify-content-end bg-white" },
             [
-              _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
-                _vm._m(0),
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.いいねの数) +
-                    "\n                "
-                )
-              ])
+              _vm.item.liked_by_user
+                ? _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn p-0 border-0",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.like($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "fa fa-heart like-btn-unlike"
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-0 text-secondary" }, [
+                      _vm._v(_vm._s(_vm.item.likes_count))
+                    ])
+                  ])
+                : _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn p-0 border-0",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.like($event)
+                          }
+                        }
+                      },
+                      [_c("span", { staticClass: "fa fa-heart like-btn" })]
+                    ),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-0 text-secondary" }, [
+                      _vm._v(_vm._s(_vm.item.likes_count))
+                    ])
+                  ])
             ]
           )
         ])
@@ -4613,16 +4939,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn p-0 border-0" }, [
-      _c("span", { staticClass: "fa fa-heart like-btn" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -4854,27 +5171,51 @@ var render = function() {
         "div",
         { staticClass: "card-footer py-1 justify-content-end bg-white" },
         [
-          _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
-            _vm._m(0),
-            _vm._v(
-              "\n                " + _vm._s(_vm.いいねの数) + "\n            "
-            )
-          ])
+          _vm.item.liked_by_user
+            ? _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn p-0 border-0",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.like($event)
+                      }
+                    }
+                  },
+                  [_c("span", { staticClass: "fa fa-heart like-btn-unlike" })]
+                ),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-0 text-secondary" }, [
+                  _vm._v(_vm._s(_vm.item.likes_count))
+                ])
+              ])
+            : _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn p-0 border-0",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.like($event)
+                      }
+                    }
+                  },
+                  [_c("span", { staticClass: "fa fa-heart like-btn" })]
+                ),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-0 text-secondary" }, [
+                  _vm._v(_vm._s(_vm.item.likes_count))
+                ])
+              ])
         ]
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn p-0 border-0" }, [
-      _c("span", { staticClass: "fa fa-heart like-btn" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -5401,27 +5742,51 @@ var render = function() {
         "div",
         { staticClass: "card-footer py-1 justify-content-end bg-white" },
         [
-          _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
-            _vm._m(0),
-            _vm._v(
-              "\n                " + _vm._s(_vm.いいねの数) + "\n            "
-            )
-          ])
+          _vm.tweet.liked_by_user
+            ? _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn p-0 border-0",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.onLikeClick($event)
+                      }
+                    }
+                  },
+                  [_c("span", { staticClass: "fa fa-heart like-btn-unlike" })]
+                ),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-0 text-secondary" }, [
+                  _vm._v(_vm._s(_vm.tweet.likes_count))
+                ])
+              ])
+            : _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn p-0 border-0",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.onLikeClick($event)
+                      }
+                    }
+                  },
+                  [_c("span", { staticClass: "fa fa-heart like-btn" })]
+                ),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-0 text-secondary" }, [
+                  _vm._v(_vm._s(_vm.tweet.likes_count))
+                ])
+              ])
         ]
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn p-0 border-0" }, [
-      _c("span", { staticClass: "fa fa-heart like-btn" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -5528,7 +5893,11 @@ var render = function() {
     "div",
     { staticClass: "tweet-list" },
     _vm._l(_vm.tweets, function(tweet) {
-      return _c("Tweet", { key: tweet.id, attrs: { item: tweet } })
+      return _c("Tweet", {
+        key: tweet.id,
+        attrs: { item: tweet },
+        on: { like: _vm.onLikeClick }
+      })
     }),
     1
   )
@@ -5635,7 +6004,7 @@ var render = function() {
                               on: {
                                 click: function($event) {
                                   $event.preventDefault()
-                                  return _vm.follow($event)
+                                  return _vm.onFollowClick($event)
                                 }
                               }
                             },
@@ -5660,7 +6029,7 @@ var render = function() {
                               on: {
                                 click: function($event) {
                                   $event.preventDefault()
-                                  return _vm.follow($event)
+                                  return _vm.onFollowClick($event)
                                 }
                               }
                             },
@@ -5724,7 +6093,11 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm._l(_vm.tweets, function(tweet) {
-        return _c("Tweet", { key: tweet.id, attrs: { item: tweet } })
+        return _c("Tweet", {
+          key: tweet.id,
+          attrs: { item: tweet },
+          on: { like: _vm.onLikeClick }
+        })
       })
     ],
     2
@@ -23336,9 +23709,8 @@ var routes = [{
     }
   }
 }, {
-  path: '/tweets/:id',
-  component: _pages_TweetDetail_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-  props: true,
+  path: '/tweets/create',
+  component: _pages_TweetForm_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
     if (_store__WEBPACK_IMPORTED_MODULE_10__["default"].getters['auth/check']) {
       next();
@@ -23347,8 +23719,9 @@ var routes = [{
     }
   }
 }, {
-  path: '/tweets/create',
-  component: _pages_TweetForm_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+  path: '/tweets/:id',
+  component: _pages_TweetDetail_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+  props: true,
   beforeEnter: function beforeEnter(to, from, next) {
     if (_store__WEBPACK_IMPORTED_MODULE_10__["default"].getters['auth/check']) {
       next();

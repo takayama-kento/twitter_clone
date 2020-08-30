@@ -42,7 +42,9 @@ class LikeApiTest extends TestCase
      */
     public function should_いいねを解除できる()
     {
-        $this->tweet->likes()->attach($this->user->id);
+        $this->actingAs($this->user)->json('PUT', route('tweet.like', [
+            'tweet_id' => $this->tweet->id,
+        ]));
 
         $response = $this->actingAs($this->user)->json('DELETE', route('tweet.unlike', [
             'tweet_id' => $this->tweet->id,
