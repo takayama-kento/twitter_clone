@@ -33,6 +33,9 @@ Route::get('/users', 'UserController@index')->name('user.index');
 // ユーザー詳細
 Route::get('/users/{id}', 'UserController@show')->name('user.show');
 
+// ユーザー詳細用のツイート一覧
+Route::get('/users/{id}/tweets', 'UserController@tweets')->name('user.tweets');
+
 // フォロー
 Route::put('/users/{id}/follow', 'UserController@follow')->name('user.follow');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,6 +38,17 @@ class UserController extends Controller
         }
 
         return $user;
+    }
+
+    /**
+     * ユーザー詳細用のツイート一覧
+     * @param int $id
+     * return Tweet
+     */
+    public function tweets(int $id)
+    {
+        $tweets = Tweet::where('user_id', $id)->with(['author'])->orderBy(Tweet::CREATED_AT, 'desc')->get();
+        return response()->json(['data' => $tweets]);
     }
 
     /**
