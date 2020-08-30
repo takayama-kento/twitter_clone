@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Follow extends Model
+class Follower extends Model
 {
     protected $primaryKey = [
         'following_id',
@@ -17,10 +17,6 @@ class Follow extends Model
 
     /** JSONに含める属性 */
     protected $visible = [
-        'user_id', 'followed_user_id'
+        'following_id', 'followed_id'
     ];
-
-    /**
-     * リレーションシップ　
-     */
 }

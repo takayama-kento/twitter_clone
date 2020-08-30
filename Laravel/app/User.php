@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -28,8 +29,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * JSONに含めるアクセサ
+     */
+    protected $appends = [
+        'followed_by_user', 'following_to_user'
+    ];
+
+    /**
+     * JSONに含める属性
+     */
     protected $visible = [
-        'id', 'name',
+        'id', 'name', 
+        'followed_by_user', 'following_to_user'
     ];
 
     public function followers()
@@ -40,6 +52,34 @@ class User extends Authenticatable
     public function follows()
     {
         return $this->belongsToMany(self::class, 'followers', 'following_id', 'followed_id');
+    }
+
+    /**
+     * アクセサ - followed_by_user
+     */
+    public function getFollowedByUserAttribute()
+    {
+        if (Auth::guest()) {
+            return false;
+        }
+
+        return $this->followers->contains(function ($user) {
+            return $user->id === Auth::user()->id;
+        });
+    }
+
+    /**
+     * アクセサ - following_to_user
+     */
+    public function getFollowingToUserAttribute()
+    {
+        if (Auth::guest()) {
+            return false;
+        }
+
+        return $this->follows->contains(function ($user) {
+            return $user->id === Auth::user()->id;
+        });
     }
 
     public function tweets()
