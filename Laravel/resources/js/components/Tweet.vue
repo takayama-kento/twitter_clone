@@ -13,7 +13,7 @@
                     </div>
                     <div class="d-flex justify-content-end flex-grow-1">
                         <p class="mb-0 text-secondary">
-                            {{ 作成日 }}
+                            {{ item.formatted_created_at }}
                         </p>
                     </div>
                 </div>
