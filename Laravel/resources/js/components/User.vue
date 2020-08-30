@@ -18,7 +18,7 @@
                 </button>
             </div>
             <div v-else class="d-flex justify-content-end flex-grow-1">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" @click.prevent="follow">
                     フォローする
                 </button>
             </div>
