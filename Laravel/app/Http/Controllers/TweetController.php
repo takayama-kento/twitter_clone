@@ -57,4 +57,41 @@ class TweetController extends Controller
 
         return $tweet;
     }
+
+    /**
+     * いいね
+     * @param int $tweet_id
+     * @return array
+     */
+    public function like(int $tweet_id)
+    {
+        $tweet = Tweet::where('id', $tweet_id)->with('likes')->first();
+
+        if (! $tweet) {
+            abort(404);
+        }
+
+        $tweet->likes()->detach(Auth::user()->id);
+        $tweet->likes()->attach(Auth::user()->id);
+
+        return ["tweet_id" => $tweet_id];
+    }
+
+    /**
+     * いいね解除
+     * @param int $tweet_id
+     * @return array
+     */
+    public function unlike(int $tweet_id)
+    {
+        $tweet = Tweet::where('id', $tweet_id)->with('likes')->first();
+
+        if (! $tweet) {
+            abort(404);
+        }
+
+        $tweet->likes()->detach(Auth::user()->id);
+
+        return ["tweet_id" => $tweet_id];
+    }
 }

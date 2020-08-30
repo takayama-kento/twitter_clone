@@ -37,6 +37,15 @@ class Tweet extends Model
     }
 
     /**
+     * リレーションシップ - usersテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function likes()
+    {
+        return $this->belongsToMany('App\User', 'likes')->withTimestamps();
+    }
+
+    /**
      * アクセサ - formatted_created_at
      */
     public function getFormattedCreatedAtAttribute()

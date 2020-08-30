@@ -50,3 +50,9 @@ Route::get('/tweets', 'TweetController@index')->name('tweet.index');
 
 // ツイート詳細
 Route::get('/tweets/{tweet_id}', 'TweetController@show')->name('tweet.show');
+
+// いいね
+Route::put('/tweets/{tweet_id}/like', 'TweetController@like')->name('tweet.like');
+
+// いいね解除
+Route::delete('/tweets/{tweet_id}/like', 'TweetController@unlike')->name('tweet.unlike');
