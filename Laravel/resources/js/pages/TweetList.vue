@@ -10,7 +10,7 @@
 
 <script>
 import { OK } from '../util'
-import Tweet from '../components/Tweet.vue'
+import Tweet from '../components/FollowingTweet.vue'
 
 export default {
     components: {
