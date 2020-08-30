@@ -39,6 +39,6 @@ class TweetController extends Controller
         $tweets = Tweet::with(['author'])
             ->orderBy(Tweet::CREATED_AT, 'desc')->get();
         
-        return $tweets;
+        return response()->json(['data' => $tweets]);
     }
 }
