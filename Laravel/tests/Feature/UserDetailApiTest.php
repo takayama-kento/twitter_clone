@@ -26,15 +26,17 @@ class UserDetailApiTest extends TestCase
             'id' => $this->user->id,
         ]));
 
+        $expected_data = [
+            'id' => $this->user->id,
+            'name' => $this->user->name,
+            'tweets_count' => $this->user->tweets_count,
+            'followers_count' => $this->user->followers_count,
+            'follows_count' => $this->user->follows_count,
+            'followed_by_user' => $this->user->followed_by_user,
+            'following_to_user' => $this->user->following_to_user,
+        ];
+
         $response->assertStatus(200)
-            ->assertJsonFragment([
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-                'tweets_count' => $this->user->tweets_count,
-                'followers_count' => $this->user->followers_count,
-                'follows_count' => $this->user->follows_count,
-                'followed_by_user' => $this->user->followed_by_user,
-                'following_to_user' => $this->user->following_to_user,
-            ]);
+            ->assertJsonFragment($expected_data);
     }
 }
