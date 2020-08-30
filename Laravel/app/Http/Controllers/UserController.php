@@ -22,4 +22,38 @@ class UserController extends Controller
         $users = User::get();
         return response()->json(['data' => $users]);
     }
+
+    /**
+     * フォロー
+     * @param int $id
+     * @return array
+     */
+    public function follow(int $id)
+    {
+        $followed_user = User::where('id', $id)->with('followers')->first();
+
+        if (! $followed_user) {
+            abort(404);
+        }
+
+        $followed_user->followers()->detach(Auth::user()->id);
+        $followed_user->followers()->attach(Auth::user()->id);
+
+        return ["user_id" => $id];
+    }
+
+    /**
+     * フォロー解除
+     */
+    public function unfollow(int $id) {
+        $followed_user = User::where('id', $id)->with('followers')->fisrt();
+
+        if (! $followed_user) {
+            abort(404);
+        }
+
+        $followed_user->followers()->detach(Auth::user()->id);
+
+        return ["user_id" => $id];
+    }
 }

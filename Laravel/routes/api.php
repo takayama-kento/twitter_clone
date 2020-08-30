@@ -30,6 +30,12 @@ Route::get('/user', fn() => Auth::user())->name('user');
 // ユーザー一覧
 Route::get('/users', 'UserController@index')->name('user.index');
 
+// フォロー
+Route::put('/users/{id}/follow', 'UserController@follow')->name('user.follow');
+
+// フォロー解除
+Route::delete('/users/{id}/follow', 'UserController@unfollow')->name('user.follow');
+
 // ツイート投稿
 Route::post('/tweet/create', 'TweetController@create')->name('tweet.create');
 
