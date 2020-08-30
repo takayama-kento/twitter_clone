@@ -24,6 +24,22 @@ class UserController extends Controller
     }
 
     /**
+     * ユーザー詳細
+     * @param int $id
+     * @return User
+     */
+    public function show(int $id)
+    {
+        $user = User::where('id', $id)->with(['follows', 'followers'])->first();
+
+        if (! $user) {
+            abort(404);
+        }
+
+        return $user;
+    }
+
+    /**
      * フォロー
      * @param int $id
      * @return array

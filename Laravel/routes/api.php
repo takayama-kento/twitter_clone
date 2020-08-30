@@ -30,6 +30,9 @@ Route::get('/user', fn() => Auth::user())->name('user');
 // ユーザー一覧
 Route::get('/users', 'UserController@index')->name('user.index');
 
+// ユーザー詳細
+Route::get('/users/{id}', 'UserController@show')->name('user.show');
+
 // フォロー
 Route::put('/users/{id}/follow', 'UserController@follow')->name('user.follow');
 

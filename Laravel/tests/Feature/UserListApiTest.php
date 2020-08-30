@@ -34,6 +34,9 @@ class UserListApiTest extends TestCase
             return [
                 'id' => $user->id,
                 'name' => $user->name,
+                'tweets_count' => $user->tweets_count,
+                'followers_count' => $user->followers_count,
+                'follows_count' => $user->follows_count,
                 'followed_by_user' => $user->followed_by_user,
                 'following_to_user' => $user->following_to_user,
             ];

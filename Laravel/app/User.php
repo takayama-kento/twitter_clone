@@ -33,6 +33,8 @@ class User extends Authenticatable
      * JSONに含めるアクセサ
      */
     protected $appends = [
+        'tweets_count',
+        'followers_count', 'follows_count',
         'followed_by_user', 'following_to_user'
     ];
 
@@ -40,7 +42,9 @@ class User extends Authenticatable
      * JSONに含める属性
      */
     protected $visible = [
-        'id', 'name', 
+        'id', 'name',
+        'tweets_count',
+        'followers_count', 'follows_count',
         'followed_by_user', 'following_to_user'
     ];
 
@@ -52,6 +56,22 @@ class User extends Authenticatable
     public function follows()
     {
         return $this->belongsToMany(self::class, 'followers', 'following_id', 'followed_id');
+    }
+
+    /**
+     * アクセサ - followers_count
+     */
+    public function getFollowersCountAttribute()
+    {
+        return $this->followers->count();
+    }
+
+    /**
+     * アクセサ - following_count
+     */
+    public function getFollowsCountAttribute()
+    {
+        return $this->follows->count();
     }
 
     /**
@@ -85,5 +105,12 @@ class User extends Authenticatable
     public function tweets()
     {
         return $this->hasMany('App\Tweet')->orderBy('id', 'desc');
+    }
+    /**
+     * アクセサ - tweets_count
+     */
+    public function getTweetsCountAttribute()
+    {
+        return $this->tweets->count();
     }
 }
