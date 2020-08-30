@@ -30,4 +30,15 @@ class TweetController extends Controller
 
         return response($tweet, 201);
     }
+
+    /**
+     * ツイート一覧
+     */
+    public function index()
+    {
+        $tweets = Tweet::with(['author'])
+            ->orderBy(Tweet::CREATED_AT, 'desc')->get();
+        
+        return $tweets;
+    }
 }
