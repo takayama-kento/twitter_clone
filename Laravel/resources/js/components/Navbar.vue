@@ -5,7 +5,7 @@
         </RouterLink>
         <div class="navbar__menu">
             <div v-if="isLogin">
-                <RouterLink class="button button--link" to="/users">
+                <RouterLink class="button button--link" :to="`/users/${this.userId}`">
                     {{ username }}
                 </RouterLink>
                 <RouterLink class="button button--link" to="/users">
@@ -35,6 +35,9 @@ export default {
         },
         username () {
             return this.$store.getters['auth/username']
+        },
+        userId () {
+            return this.$store.getters['auth/userId']
         }
     }
 }
