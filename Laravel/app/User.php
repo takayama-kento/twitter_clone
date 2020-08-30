@@ -34,16 +34,16 @@ class User extends Authenticatable
 
     public function followers()
     {
-        return $this->belongsToMany(self::class, 'follows', 'followed_user_id', 'user_id');
+        return $this->belongsToMany(self::class, 'followers', 'followed_id', 'following_id');
     }
 
     public function follows()
     {
-        return $this->belongsToMany(self::class, 'follows', 'user_id', 'follower_user_id');
+        return $this->belongsToMany(self::class, 'followers', 'following_id', 'followed_id');
     }
 
     public function tweets()
     {
-        return $this->hasMany('App\Tweet');
+        return $this->hasMany('App\Tweet')->orderBy('id', 'desc');
     }
 }

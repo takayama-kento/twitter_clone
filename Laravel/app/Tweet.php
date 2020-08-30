@@ -14,10 +14,9 @@ class Tweet extends Model
         'tweet'
     ];
 
-
     /** JSONに含める属性 */
     protected $visible = [
-        'author', 'tweet',
+        'id', 'tweet', 'author',
     ];
 
     /**
