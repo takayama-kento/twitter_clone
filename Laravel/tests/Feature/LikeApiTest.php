@@ -40,6 +40,17 @@ class LikeApiTest extends TestCase
     /**
      * @test
      */
+    public function should_2回同じtweetにいいねしても1個しかいいねがつかない()
+    {
+        $this->actingAs($this->user)->json('PUT', route('tweet.like', ['tweet_id' => $this->tweet->id]));
+        $this->actingAs($this->user)->json('PUT', route('tweet.like', ['tweet_id' => $this->tweet->id]));
+
+        $this->assertEquals(1, $this->tweet->likes()->count());
+    }
+
+    /**
+     * @test
+     */
     public function should_いいねを解除できる()
     {
         $this->actingAs($this->user)->json('PUT', route('tweet.like', [

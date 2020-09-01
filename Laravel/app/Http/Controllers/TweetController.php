@@ -66,11 +66,14 @@ class TweetController extends Controller
      */
     public function like(int $tweet_id)
     {
-        Like::create([
-            'user_id' => Auth::user()->id,
-            'tweet_id' => $tweet_id
-        ]);
+        $like = Like::where('tweet_id', $tweet_id)->where('user_id', Auth::user()->id)->first();
 
+        if (! $like) {
+            Like::create([
+                'user_id' => Auth::user()->id,
+                'tweet_id' => $tweet_id
+            ]);
+        }
 
         return ["tweet_id" => $tweet_id];
     }
