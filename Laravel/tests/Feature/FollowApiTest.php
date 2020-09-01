@@ -35,6 +35,18 @@ class FollowApiTest extends TestCase
         
         $this->assertEquals(1, $this->followed_user->followers()->count());
     }
+
+    /**
+     * @test
+     */
+    public function should_2回フォローしても2重にカウントされない()
+    {
+        $param = ['id' => $this->followed_user->id];
+        $this->actingAs($this->following_user)->json('PUT', route('user.follow', $param));
+        $this->actingAs($this->following_user)->json('PUT', route('user.follow', $param));
+
+        $this->assertEquals(1, $this->followed_user->followers()->count());
+    }
     
     /**
      * @test
