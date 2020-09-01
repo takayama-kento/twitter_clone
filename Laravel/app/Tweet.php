@@ -5,6 +5,7 @@ namespace App;
 use App\Like;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Tweet extends Model
 {
