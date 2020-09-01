@@ -2022,6 +2022,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     userId: function userId() {
@@ -2474,6 +2476,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -4813,33 +4817,71 @@ var render = function() {
       ]
     },
     [
-      _c("div", { staticClass: "col-md-8 mb-3" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header p-3 w-100 d-flex" }, [
-            _c("img", {
-              staticClass: "rounded-circle",
-              attrs: {
-                src:
-                  "https://drive.google.com/uc?id=1tRwOMX-PoWhp1dFhuV2wpe5_cOc6699W",
-                width: "50",
-                height: "50"
-              }
-            }),
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-8 mb-3" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header p-3 w-100 d-flex" }, [
+              _c("img", {
+                staticClass: "rounded-circle",
+                attrs: {
+                  src:
+                    "https://drive.google.com/uc?id=1tRwOMX-PoWhp1dFhuV2wpe5_cOc6699W",
+                  width: "50",
+                  height: "50"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "ml-2 d-flex flex-column flex-grow-1" },
+                [
+                  _c(
+                    "RouterLink",
+                    {
+                      staticClass: "text-secondary",
+                      attrs: { to: "/users/" + _vm.item.author.id }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.item.author.name) +
+                          "\n                        "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "d-flex justify-content-end flex-grow-1" },
+                [
+                  _c("p", { staticClass: "mb-0 text-secondary" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.item.formatted_created_at) +
+                        "\n                        "
+                    )
+                  ])
+                ]
+              )
+            ]),
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "ml-2 d-flex flex-column flex-grow-1" },
+              { staticClass: "card-body" },
               [
                 _c(
                   "RouterLink",
                   {
-                    staticClass: "text-secondary",
-                    attrs: { to: "/users/" + _vm.item.author.id }
+                    staticClass: "button button--link",
+                    attrs: { to: "/tweets/" + _vm.item.id }
                   },
                   [
                     _vm._v(
                       "\n                        " +
-                        _vm._s(_vm.item.author.name) +
+                        _vm._s(_vm.item.tweet) +
                         "\n                    "
                     )
                   ]
@@ -4850,90 +4892,62 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "d-flex justify-content-end flex-grow-1" },
+              { staticClass: "card-footer py-1 justify-content-end bg-white" },
               [
-                _c("p", { staticClass: "mb-0 text-secondary" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.item.formatted_created_at) +
-                      "\n                    "
-                  )
-                ])
+                _vm.item.liked_by_user
+                  ? _c(
+                      "div",
+                      { staticClass: "mr-2 d-flex align-items-center" },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn p-0 border-0",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.like($event)
+                              }
+                            }
+                          },
+                          [
+                            _c("span", {
+                              staticClass: "fa fa-heart like-btn-unlike"
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-0 text-secondary" }, [
+                          _vm._v(_vm._s(_vm.item.likes_count))
+                        ])
+                      ]
+                    )
+                  : _c(
+                      "div",
+                      { staticClass: "mr-2 d-flex align-items-center" },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn p-0 border-0",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.like($event)
+                              }
+                            }
+                          },
+                          [_c("span", { staticClass: "fa fa-heart like-btn" })]
+                        ),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-0 text-secondary" }, [
+                          _vm._v(_vm._s(_vm.item.likes_count))
+                        ])
+                      ]
+                    )
               ]
             )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _c(
-                "RouterLink",
-                {
-                  staticClass: "button button--link",
-                  attrs: { to: "/tweets/" + _vm.item.id }
-                },
-                [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(_vm.item.tweet) +
-                      "\n                "
-                  )
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-footer py-1 justify-content-end bg-white" },
-            [
-              _vm.item.liked_by_user
-                ? _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn p-0 border-0",
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.like($event)
-                          }
-                        }
-                      },
-                      [
-                        _c("span", {
-                          staticClass: "fa fa-heart like-btn-unlike"
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "mb-0 text-secondary" }, [
-                      _vm._v(_vm._s(_vm.item.likes_count))
-                    ])
-                  ])
-                : _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn p-0 border-0",
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.like($event)
-                          }
-                        }
-                      },
-                      [_c("span", { staticClass: "fa fa-heart like-btn" })]
-                    ),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "mb-0 text-secondary" }, [
-                      _vm._v(_vm._s(_vm.item.likes_count))
-                    ])
-                  ])
-            ]
-          )
+          ])
         ])
       ])
     ]
@@ -5688,101 +5702,105 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-8 mb-3" }, [
-    _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header p-3 w-100 d-flex" }, [
-        _c("img", {
-          staticClass: "rounded-circle",
-          attrs: {
-            src:
-              "https://drive.google.com/uc?id=1tRwOMX-PoWhp1dFhuV2wpe5_cOc6699W",
-            width: "50",
-            height: "50"
-          }
-        }),
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "col-md-8 mb-3" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header p-3 w-100 d-flex" }, [
+          _c("img", {
+            staticClass: "rounded-circle",
+            attrs: {
+              src:
+                "https://drive.google.com/uc?id=1tRwOMX-PoWhp1dFhuV2wpe5_cOc6699W",
+              width: "50",
+              height: "50"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "ml-2 d-flex flex-column flex-grow-1" },
+            [
+              _c(
+                "RouterLink",
+                {
+                  staticClass: "text-secondary",
+                  attrs: { to: "/users/" + _vm.tweet.author.id }
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.tweet.author.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex justify-content-end flex-grow-1" }, [
+            _c("p", { staticClass: "mb-0 text-secondary" }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.tweet.formatted_created_at) +
+                  "\n                    "
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _vm._v(
+            "\n                " + _vm._s(_vm.tweet.tweet) + "\n            "
+          )
+        ]),
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "ml-2 d-flex flex-column flex-grow-1" },
+          { staticClass: "card-footer py-1 justify-content-end bg-white" },
           [
-            _c(
-              "RouterLink",
-              {
-                staticClass: "text-secondary",
-                attrs: { to: "/users/" + _vm.tweet.author.id }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.tweet.author.name) +
-                    "\n                "
-                )
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "d-flex justify-content-end flex-grow-1" }, [
-          _c("p", { staticClass: "mb-0 text-secondary" }, [
-            _vm._v(
-              "\n                    " +
-                _vm._s(_vm.tweet.formatted_created_at) +
-                "\n                "
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _vm._v("\n            " + _vm._s(_vm.tweet.tweet) + "\n        ")
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "card-footer py-1 justify-content-end bg-white" },
-        [
-          _vm.tweet.liked_by_user
-            ? _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn p-0 border-0",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.onLikeClick($event)
+            _vm.tweet.liked_by_user
+              ? _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn p-0 border-0",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.onLikeClick($event)
+                        }
                       }
-                    }
-                  },
-                  [_c("span", { staticClass: "fa fa-heart like-btn-unlike" })]
-                ),
-                _vm._v(" "),
-                _c("p", { staticClass: "mb-0 text-secondary" }, [
-                  _vm._v(_vm._s(_vm.tweet.likes_count))
+                    },
+                    [_c("span", { staticClass: "fa fa-heart like-btn-unlike" })]
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-0 text-secondary" }, [
+                    _vm._v(_vm._s(_vm.tweet.likes_count))
+                  ])
                 ])
-              ])
-            : _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn p-0 border-0",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.onLikeClick($event)
+              : _c("div", { staticClass: "mr-2 d-flex align-items-center" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn p-0 border-0",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.onLikeClick($event)
+                        }
                       }
-                    }
-                  },
-                  [_c("span", { staticClass: "fa fa-heart like-btn" })]
-                ),
-                _vm._v(" "),
-                _c("p", { staticClass: "mb-0 text-secondary" }, [
-                  _vm._v(_vm._s(_vm.tweet.likes_count))
+                    },
+                    [_c("span", { staticClass: "fa fa-heart like-btn" })]
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-0 text-secondary" }, [
+                    _vm._v(_vm._s(_vm.tweet.likes_count))
+                  ])
                 ])
-              ])
-        ]
-      )
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -5891,7 +5909,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "tweet-list" },
     _vm._l(_vm.tweets, function(tweet) {
       return _c("Tweet", {
         key: tweet.id,

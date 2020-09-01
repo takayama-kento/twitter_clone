@@ -1,5 +1,5 @@
 <template>
-    <div class="tweet-list">
+    <div>
         <Tweet
             v-for="tweet in tweets"
             :key="tweet.id"
